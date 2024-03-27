@@ -2,6 +2,7 @@ package gaspardev.controller;
 
 import gaspardev.model.Grid;
 import gaspardev.model.Tile;
+import gaspardev.model.Cell;
 
 import java.io.File;
 
@@ -89,4 +90,63 @@ public class WaveFuntionColapse {
         return grid;
     }
 
+    public void fillEntropie() {
+
+        for (int i = 0; i < this.grid.getWidth(); i++) {
+            for (int j = 0; j < this.grid.getHeight(); j++) {
+                this.grid.getCell(i, j).setEntropy(tiles);
+            }
+        }
+    }
+
+    public static void updateEntropie(Cell cell, Tile deleteEntropy) {
+        Tile actualEntropie[] = cell.getEntropy();
+        for (int i = 0; i < actualEntropie.length; i++) {
+            if (actualEntropie[i] == deleteEntropy) {
+                actualEntropie[i] = null;
+            }
+        }
+        Tile returnedTile[] = new Tile[actualEntropie.length - 1];
+        for (int i = 0; i < actualEntropie.length; i++) {
+            if (actualEntropie[i] != null) {
+                returnedTile[i] = actualEntropie[i];
+            }
+        }
+        cell.setEntropy(returnedTile);
+    }
+
+    public Cell getTheLessEntropyCell() {
+
+        Cell lessEntropyCell = null;
+        for (Cell cell : this.grid.getSpaces()[0]) {
+            if (cell.getEntropy().length < lessEntropyCell.getEntropy().length) {
+                lessEntropyCell = cell;
+            }
+        }
+        if (lessEntropyCell == null) {
+            lessEntropyCell = this.getRandoCell();
+        }
+        return lessEntropyCell;
+    }
+
+    public Cell getRandoCell() {
+        int x = (int) (Math.random() * this.grid.getWidth());
+        int y = (int) (Math.random() * this.grid.getHeight());
+
+        return this.grid.getCell(x, y);
+    }
+
+    // public void drawGrid() {
+
+    // Cell tempCell;
+
+    // tempCell = this.getTheLessEntropyCell();
+    // tempCell.colpasCell(tempCell.getRandomEntropieValueTile());
+    // for (Cell neibors : tempCell.getNeighbors()) {
+    // if (neibors != null) {
+    // updateEntropie(neibors,);
+    // }
+    // }
+
+    // }
 }

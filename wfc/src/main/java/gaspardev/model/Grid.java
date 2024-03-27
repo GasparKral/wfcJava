@@ -42,6 +42,10 @@ public class Grid {
         this.spaces = spaces;
     }
 
+    public Cell getCell(int x, int y) {
+        return this.spaces[x][y];
+    }
+
     @Override
     public String toString() {
         return "{" +

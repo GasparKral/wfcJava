@@ -30,6 +30,7 @@ public class Test1 {
                     TemporalData data = askData();
                     wfc.loadTilesRotations(data.getData());
                     wfc = new WaveFuntionColapse(new Grid(data.getWidth(), data.getHeight()));
+                    wfc.fillEntropie();
                     break;
                 case 3:
                     wfc.showTiles();

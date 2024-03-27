@@ -56,6 +56,29 @@ public class Cell {
         this.entropy = entropy;
     }
 
+    public void colpasCell(Tile colapsTile) {
+        this.isColapsed = true;
+        this.colapsedTile = colapsTile;
+    }
+
+    public Tile getRandomEntropieValueTile() {
+
+        double index = Math.random();
+        double array[] = new double[entropy.length];
+        Tile returnedTile = null;
+
+        for (int i = 0; i < array.length; i++) {
+            array[i] = (1 / array.length) * this.getEntropy()[i].getWeight();
+        }
+
+        for (int i = 0; i < array.length; i++) {
+            if (index >= array[i]) {
+                returnedTile = this.getEntropy()[i];
+            }
+        }
+        return returnedTile;
+    }
+
     @Override
     public String toString() {
         return "{" +
